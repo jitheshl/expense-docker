@@ -1,7 +1,11 @@
 FROM node:20.18.3-alpine3.21
+RUN addgroup -S appgroup && expense -S expense -G expense
+RUN mkdir /opt/backend
+RUN chmod -R expense:expense /opt/backend
 WORKDIR /opt/backend
 COPY package.json .
 COPY *.js .
 RUN npm install
 ENV DB_HOST="mysql"
+USER expense
 CMD ["node","index.js"]
